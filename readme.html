@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<html>
+<head>
+<style>
+	h3{font-family:Arial;color:blue;}
+	h4{color:#FF0000;}
+	p{color:black;}
+	table,th,td{
+		border: 1px solid black;
+		background-color: #FFFFFF;
+    }
+	th,td{padding: 5px;}
+	th{text-align: left;}
+
+    ul#menu{padding:0;}
+	ul#menu li{display:inline;}
+	ul#menu li a{
+		background-color: #006633;
+ 		color: white;
+		padding: 10px 20px;
+		text-decoration: none;
+		border-radius: 4px 4px 0 0;
+	}
+	ul#menu li a:hover{
+		background-color:#00FF00;
+	}
+	#header-container{
+		overflow: hidden;
+		width:800px;
+		margin:30px 80px 10px 80px;
+	/*border: 1px solid black;*/
+	}
+	#header-left{
+		width:60%;
+		float: left;
+	/*border: 1px solid black;*/
+	}
+	#header-right{
+		width: Auto;
+		float: right;
+	/*border: 1px solid black;*/
+	}
+	#section{
+		margin:30px 80px 0px 80px;
+		width:800px;
+	/*border: 1px solid black;*/
+	}
+	#body-container{
+		background-color: #006633;
+		float:left;
+		margin:0px 80px 20px 80px;
+		width:800px; 
+	/*border: 1px solid black;*/
+	}
+	#child{
+		background-color: #F8F8F8;
+		width: 700px;
+		margin:5px 10px 5px 30px;
+		padding: 20px;
+	/*border: 1px solid black;*/
+	}
+	#footer{
+		color:white; 
+		text-align:center;
+		clear:both;
+		width:800px;
+		margin:20px 80px 20px 80px;
+	/*border: 1px solid black;*/
+	}
+</style>
+</head>
+<body style="background-color:#F8F8F8;font-size:16px">
+
+<div id="header-container">
+	<div id="header-left">
+		<h1><a id="top">SNN-Cliq</a></h1>
+		<p style="font-family:courier" title=SNN-Cliq><b>A clustering method for high dimensional dataset</b></p>
+	</div>
+	<div id="header-right">
+		<ul style="list-style-type:none">
+		<li><a href="http://www.uncc.edu"><img src="UNCC_Logo_1c.gif" alt="UNC Charlotte" style="width:140px;height:60px"></a></li>
+		<li><a href="http://bioinformatics.uncc.edu/">Bioinformatics Department</a></li>
+		<li><a href="http://sulab.uncc.edu">Su Lab</a></li>
+		</ul>
+	</div>
+</div>
+
+<div id="section">
+<hr>
+<ul id="menu">
+ <li><a href="#overview">Overview</a></li>
+ <li><a href="#manual">Manual</a></li>
+ <li><a href="#download">Download</a></li>
+ <li><a href="#contact">Contact</a></li>
+</ul>
+</div>
+
+<div id="body-container"> <!-- begin body-container-->
+<div id="child"> <!-- begin overview-->
+<h3><a id="overview">Overview</a></h3>
+<ul style="list-style-type:square">
+<li >SNN-Cliq is a clustering method designed for <b>high dimensional gene expression data</b>, e.g. single-cell transcriptome data. This method can effectively cluster individual cells based on their transcriptomes, producing clustering outputs highly in accordance with the cell type origins. SNN-Cliq utilizes the concept of <b>shared nearest neighbor</b> (SNN) to define similarities between data points (cells) and achieve clustering by a <b>graph theory-based algorithm</b>.</li> 
+<li>SNN-Cliq is developed and implemented by <i>Chen Xu</i> in <a href="http://sulab.uncc.edu"><i>Dr. Su's lab </i></a>at the <a href="http://www.uncc.edu"><i>University of North Carolina at Charlotte</i></a>.</li>
+<li>The detailed paper of the algorithm can be downloaded here. <a href="http://bioinformatics.oxfordjournals.org/content/early/2015/02/10/bioinformatics.btv088.abstract"><ins><i>Identification of cell types from single-cell transcriptome using a novel clustering method </i></ins></a>.</li>
+<li>Last update: Feb 27, 2017</li>
+</ul>
+<a href="#top">>>back to top</a>
+</div> <!--Overview end-->
+
+<!-- begin Manual-->
+<div id="child">
+<h3><a id="manual">Manual</a></h3>
+<dl><dt>SNN-Cliq</dt><dd>Current version: 1.0, Oct 2014</dd><dd>Update on Mar 2015: An R script of SNN.R is added as an alternative to SNN.m</dd><dd>Update on Jun 2016: Make changes in Cliq.py to accommodate Python 3. Cliq.py is now tested on Python 2.6, 2.7 and 3.5.</dd><dd>Update on Feb 2017: Make change in Cliq.py (Line 85) to accommodate the change of dict.keys() function in Python 3 (which returns a view instead of a list in Python 2).</dd><dl>
+<p>The SNN-Cliq is consisted of two steps. First, a shared nearest neighbor (SNN) graph is constructed using the input dataset. Second, dense subgraphs (clusters) are found in the SNN graph by recursively merging quasi-cliques. The two steps are implemented in the respective program:
+<br><blockquote><b>1) SNN.m (or SNN.R)</b> 
+ <br><b>2) Cliq.py</b> </blockquote></p>
+<h4>Using SNN.m</h4> 
+   <p>This Matlab program takes in a data matrix and produce a file of the SNN graph.</p>
+<ul style="list-style-type:circle">
+	<li> Usage: SNN(data, edge_file, k, distance); </li>
+	<li> Arguments:<br>
+	<table style="width:90%">
+	 <tr>
+	  <td>data </td>
+	  <td>A matrix representing the target dataset. Rows correspond to objects/observations and columns correspond to attributes/variables. </td>
+	 </tr>
+	 <tr>
+	  <td> edge_file</td>
+	  <td> The name of the output file. The output contains all edges (with weight>0) in the SNN graph. It is used as the input file for the second step.
+	</td>
+	 </tr>
+	</table>
+	</li>
+	<li>Options:<br>
+	<table style="width:90%">
+	 <tr>
+	  <td>k </td>
+	  <td>The size of the nearest neighbor list. Default is 3. </td>
+	 </tr>
+	 <tr>
+	  <td> distance</td>
+	  <td> The method for calculating primary similarity matrix. The default is 'euclidean'. Other values include  'correlation', 'cosine', and etc. Refer to the argument 'Distance' of the Matlab function knnsearch() for more options.
+	</td>
+	 </tr>
+	</table>
+	</li>	
+	<br><li>Example of usage<br>
+	In Matlab, import the target dataset into a matrix, e.g. data=importdata('path/to/data_file.txt'). Process the data if necessary, for example, log-transformation or feature selection.</li>
+	<textarea rows="8" cols="50"> 
+data=importdata('RPKMs.txt');
+% log transformation
+data=log2(data+1);
+% construct SNN graph
+addpath('path/to/SNN.m');
+k=5;
+SNN(data, 'edge_file.txt', k); 
+	</textarea>
+	<li>Example of the original data file<br>In the context of clustering cells according to gene expression levels, the rows should correspond to cells and columns should correspond to gene levels.</li>
+	<textarea rows="4" cols="60">
+RPKM	gene1	gene2	gene3	gene4  gene1000
+cell1	565.2	232.0	0.0	4541.1  0 
+cell2	46.8	0	923.3	162.2  3.0
+cell7	411.1	0.3	545.6	0.98  721.0
+	</textarea>
+</ul>
+
+<h4>Using SNN.R</h4>
+<p>This R program serves the same purpose as SNN.m. </p>
+<ul style="list-style-type:circle">
+<li>Usage: SNN(data, edge_file, k, distance);</li>
+<li>Arguments:<br>The arguments are the same as the Matlab function SNN().<br>distance: default is 'euclidean'. Other options include  "maximum", "manhattan", "canberra" or "binary". Please refer to the dist() function in R. </li>
+<li>Example of usage:<br>Open R and import the data, e.g. data <- read.table(infile, header=TRUE, sep="\t", row.names=1). Process the data as needed, e.g. data<-log2(data+1). Then call the function by source("path/to/SNN.R"); SNN(data, 'edge_file.txt', k=3, distance="euclidean").</li>
+</ul>
+
+<h4>Using Cliq.py</h4> 
+<p>This Python program takes in the output file from SNN.m and produces a file of the clustering result.</p>
+<ul style="list-style-type:circle">
+ <li>Usage: ./Cliq.py -i &lt;edge_file&gt; -o &lt;out_file&gt; [options]</li>
+ <li>Arguments:<br>
+	<table style="width:90%">
+	 <tr>
+	  <td nowrap="nowrap">-i/ --input &lt;edge_file&gt; </td>
+	  <td>The name of the input file. It is the same as the output file from SNN.m. The edge_file can also be created by other methods. Each line represents an edge of the graph in the format of 'node1 node2 weight_of_edge' (whitespace delimited).  </td>
+	 </tr>
+	 <tr>
+	  <td nowrap="nowrap">-o/--output &lt;out_file&gt;</td>
+	  <td> The name of the output file. The output is cluster labels for each node in the graph.</td>
+	 </tr>
+	</table>
+	</li>
+	<li>Options:<br>
+	<table style="width:90%">
+	 <tr>
+	  <td nowrap="nowrap">-h/--help </td>
+	  <td>Prints the help message and exits.</td>
+	 </tr>
+	 <tr>
+	  <td nowrap="nowrap"> -r/--r-quasi-cliq </td>
+	  <td> Parameter for quasi-clique finding. r should be a float in the range of (0,1]. The default is 0.7. r specifies the density threshold of quasi-cliques. Changing r can fine-tune the granularity of cluster output: increasing r results in granulated clusters; reducing r leads to bigger clusters. </td>
+	 </tr>
+	<tr>
+	<td nowrap="nowrap"> -m/--merging </td>
+	<td> Parameter for cluster merging. m should be a float in the range of (0,1]. The default is 0.5. m specifies the threshold on the overlapping rate for merging. Change m has the same effect as changing r.</td>
+	</tr>
+	<tr>
+	<td nowrap="nowrap">-n/--number</td>
+	<td>Number of objects in the data.</td>
+	</tr>
+	<tr>
+	<td nowrap="nowrap">-h/--help</td>
+	<td>Print help message.</td>
+	</tr>
+	</table>
+	</li>	
+	<br><li>Example of usage<br>
+	<textarea rows="4", cols="80">
+./Cliq.py -i ./edge_file.txt  -o ./IDX.txt 
+./Cliq.py -i ./edge_file.txt  -o ./IDX.txt  -r 0.8    
+./Cliq.py -i ./edge_file.txt  -o ./IDX.txt  -m 0.6   
+./Cliq.py -i ./edge_file.txt  -o ./IDX.txt  -r 0.8 -m 0.6 -n 80
+	</textarea></li>
+	<li>Example of input &lt;edge_file&gt;<br>
+	<textarea rows="5", cols="30">
+1	2	0.1
+2	3	0.2
+3	4	0.5
+1	3	0.1
+5	7	0.2
+	</textarea><br>
+A node in the edge_file is represented by the index of the corresponding data point in the original data file. The edge_file should contain edges (weight>0. An edge with 0 weight will be ignored.) for only undirected graphs, and each edge only need to appear once. For example, the edge between node 1 and 2 is either represented by  '1 2 0.1' or '2 1 0.1' . If your edge_file contains more than one lines for an edge and the weights are unequal, e.g. '1 2 0.1' and '2 1 0.2',  the program will not exit with error, instead it will use the one that is read in later.  Note that the edge_file may not include all the data points in the original dataset, since the SNN graph may have some nodes isolated (no edges connecting to other nodes), e.g. node 6 is not in the edge_file. 
+	</li>
+	<li>Example of output &lt;out_file&gt;<br>
+	<textarea rows="7", cols="30">
+1
+1
+1
+-1
+-1
+-1
+-1
+	</textarea><br>
+The cluster labels in out_file denote the cluster identities of the corresponding data points. Thus, the result means: node 1 2 3 are clustered into cluster 1, while node 4 5 6 7 are all singletons (not included in any clusters). The program assigns cluster identities to each node up to the maximum indexed node in the edge_file (node 7). Since node 6 is not in the graph, it is also assigned to singletons. If the number of labels in your out_file is less than the number of data points, it is probably because the last several data points are isolated nodes in the SNN graph and are not in the edge_file. You can either manually annotate these points as singletons, or require the program to do so by giving the total number of data points using the -n option when running the program.</li>
+</ul>
+<a href="#top">>>back to top</a>
+</div><!--end of Manual-->
+<div id="child">
+	<h3><a id="download">Download</a></h3>
+	<blockquote>step 1: <a href="SNN.m">SNN.m</a> or <a href="SNN.R">SNN.R</a></blockquote>
+	<blockquote>step 2: <a href="Cliq.txt">Cliq.py</a> (change the file extension from .txt to .py after download to use)</blockquote><br>
+	<h3><a id="contact">Contact</a></h3>
+	<p>Please e-mail Chen Xu if you have any concerns or suggestions: xuchen2004 at gmail dot com</p>
+	<p>The Su Lab - Bioinformatics and Genomics <a href="http://sulab.uncc.edu/">-->></a></p>
+	<p><i>College of Computing and Informatics <a href="http://cci.uncc.edu/">-->></a></i><p>
+	<a href="#top">>>back to top</a>
+</div><!-- end of Contact-->
+</div> <!--end of body-container-->
+
+<div id="footer">
+	<!-- hitwebcounter Code START -->
+	<a href="http://www.hitwebcounter.com/htmltutorial.php" target="_blank">
+	<img src="http://hitwebcounter.com/counter/counter.php?page=5818234&style=0006&nbdigits=5&type=page&initCount=0" title="Free tracking counter" Alt="Free tracking counter"   border="0" >
+	</a><br/>
+	<!-- hitwebcounter.com --><a href="http://www.hitwebcounter.com/" title="Free Web Counters" 
+	target="_blank" style="font-family: Arial, Helvetica, sans-serif; 
+	font-size: 10px; color: #707173; text-decoration: none ;"><em>Free Web Counters</em>
+	</a>   
+
+				<p style="font-weight: bold; text-transform: none !important; font-family: arial, helvetica, sans-serif !important; color: #00703c; font-size: 0.85em;"><a 
+					style="color: #00703c; text-decoration:none;" title="Go to the www.uncc.edu website" href="http://www.uncc.edu">The University of North Carolina at Charlotte</a></p>
+				<p style="font-size: 0.72em; line-height: 10px;">9201 University City Blvd, Charlotte, NC 28223-0001 <b>&middot;</b> 704-687-8622</p>
+				<p style="font-size: 0.72em; line-height: 10px;">&copy; <span id="copyright_year"></span><noscript>2012</noscript> UNC Charlotte | All Rights Reserved | <a style="text-decoration: underline;" title="" href="http://legal.uncc.edu/termsofuse/">Terms of Use</a> | <a style="text-decoration: underline;" title="" href="http://legal.uncc.edu/policies/">Policy Statements</a></p>
+</div>
+
+</body>
+</html>
